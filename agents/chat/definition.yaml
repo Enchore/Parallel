@@ -1,0 +1,9 @@
+# 即時通訊智能體定義
+# Chat Agent 負責生成 NPC 即時通訊對話
+model: gpt-4o-mini
+role: chat_generator
+description: 為 10 個 NPC 角色生成即時通訊回覆，支持 SSE 流式輸出
+capabilities:
+  - 流式文本生成
+  - 角色扮演
+  - 情感語氣控制

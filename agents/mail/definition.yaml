@@ -1,0 +1,9 @@
+# 郵件智能體定義
+# Mail Agent 負責生成 NPC 郵件
+model: gpt-4o-mini
+role: mail_generator
+description: 為 NPC 角色生成劇情推進郵件和日常互動郵件
+capabilities:
+  - 郵件撰寫
+  - 附件描述生成
+  - 劇情觸發

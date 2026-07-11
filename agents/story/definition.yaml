@@ -1,0 +1,15 @@
+# 劇情智能體定義
+# Story Agent 負責劇情推進與結局判定
+model: qwen-plus
+role: story_manager
+description: 管理五幕劇情狀態機，根據玩家行為數據推進劇情並判定 5 種結局
+capabilities:
+  - 行為追蹤與分析
+  - 結局判定
+  - 幕數轉換管理
+endings:
+  - good_ending
+  - neutral_ending
+  - bad_ending
+  - hidden_ending
+  - true_ending

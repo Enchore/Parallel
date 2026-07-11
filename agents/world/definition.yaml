@@ -1,0 +1,5 @@
+# 世界觀智能體定義
+# World Agent 負責維護平行世界的整體世界觀
+model: qwen-plus
+role: world_manager
+description: 管理平行世界設定、時間線、NPC 狀態等全局信息
