@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: pytest (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.13"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install test dependencies
+        # 这里故意不装 backend/requirements.txt：
+        # 它包含 aioredis、sse-starlette 等运行时依赖，其中部分包在新版 Python
+        # 上没有预编译 wheel，装起来慢且不稳定。被测试的五幕状态机只依赖标准库，
+        # 其余模块的语法正确性由下面的 compileall 步骤兜住。
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pyyaml
+
+      - name: Syntax check backend
+        run: python -m compileall -q backend
+
+      - name: Validate agent definitions and docker compose
+        run: |
+          python - <<'PY'
+          import glob, yaml
+          files = sorted(glob.glob("agents/**/*.yaml", recursive=True))
+          files += sorted(glob.glob("docker/*.yml", recursive=True))
+          assert files, "没有找到任何需要校验的 YAML"
+          for path in files:
+              with open(path, encoding="utf-8") as f:
+                  yaml.safe_load(f)
+              print("ok:", path)
+          PY
+
+      - name: Run tests
+        run: python -m pytest
