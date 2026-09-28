@@ -1,5 +1,8 @@
 # Parallel — 平行世界多智能体叙事系统
 
+[![CI](https://github.com/Enchore/Parallel/actions/workflows/ci.yml/badge.svg)](https://github.com/Enchore/Parallel/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 > Multi-Agent Interactive Narrative System | FastAPI + LLM Agents + Flutter
 
 ## 项目简介
